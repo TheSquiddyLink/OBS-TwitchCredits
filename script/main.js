@@ -21,9 +21,14 @@ async function main(){
     };
     console.log(options)
     
+    const followersDiv = document.getElementById("followers");
     
     handleRequest(options, function(response) {
-        console.log(response);
+        response.data.forEach(element => {
+            let follower = document.createElement("p");
+            follower.innerHTML = element.user_name;
+            followersDiv.appendChild(follower);
+        });
     });
 
 } 
