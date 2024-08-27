@@ -66,6 +66,23 @@ async function main(){
         });
     });
 
+    const modDiv = document.getElementById("mod");
+    const modOptions = {
+        url: "https://api.twitch.tv/helix/moderation/moderators?broadcaster_id=" + ID,
+        method: 'GET',
+        headers: {
+            'Client-ID': CLIENT_ID,
+            'Authorization': `Bearer ${TOKEN}`
+        }
+    }
+
+    handleRequest(modOptions, function(response) {
+        response.data.forEach(element => {
+            let mod = document.createElement("p");
+            mod.innerHTML = element.user_name;
+            modDiv.appendChild(mod);
+        });
+    });
 } 
 
 
