@@ -48,6 +48,24 @@ async function main(){
         });
     });
 
+    const vipDiv = document.getElementById("vip");
+    const vipOptions ={
+        url: "https://api.twitch.tv/helix/channels/vips?broadcaster_id=" + ID,
+        method: 'GET',
+        headers: {
+          'Client-ID': CLIENT_ID,
+          'Authorization': `Bearer ${TOKEN}`
+        }
+    }
+
+    handleRequest(vipOptions, function(response) {
+        response.data.forEach(element => {
+            let vip = document.createElement("p");
+            vip.innerHTML = element.user_name;
+            vipDiv.appendChild(vip);
+        });
+    });
+
 } 
 
 
