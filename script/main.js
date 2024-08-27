@@ -31,6 +31,23 @@ async function main(){
         });
     });
 
+    const subOptions = {
+        url: `https://api.twitch.tv/helix/subscriptions?broadcaster_id=${ID}`,
+        method: 'GET',
+        headers: {
+          'Client-ID': CLIENT_ID,
+          'Authorization': `Bearer ${TOKEN}`
+        }
+    }
+    const subDiv = document.getElementById("subscribers");
+    handleRequest(subOptions, function(response) {
+        response.data.forEach(element => {
+            let sub = document.createElement("p");
+            sub.innerHTML = element.user_name;
+            subDiv.appendChild(sub);
+        });
+    });
+
 } 
 
 
