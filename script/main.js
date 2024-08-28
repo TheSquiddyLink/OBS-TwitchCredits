@@ -8,7 +8,7 @@ async function main(){
     console.log(config);
 
     const CLIENT_ID = config.client_id;
-    const TOKEN = config.token;
+    const TOKEN = localStorage.getItem("token");
     const ID = config.id;
 
     const options = {
