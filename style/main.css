@@ -1,0 +1,12 @@
+.credits {
+    text-align: center;
+    animation: vertScroll 50s infinite linear;
+}
+body {
+    overflow: hidden;
+}
+@keyframes vertScroll {
+    to {
+        transform: translateY(-120%);
+    }
+}
