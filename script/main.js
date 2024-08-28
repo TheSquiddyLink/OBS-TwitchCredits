@@ -24,11 +24,15 @@ async function main(){
     const followersDiv = document.getElementById("followers");
     
     handleRequest(options, function(response) {
-        response.data.forEach(element => {
-            let follower = document.createElement("p");
-            follower.innerHTML = element.user_name;
-            followersDiv.appendChild(follower);
-        });
+        const max = 10;
+        var i = 0;
+        for(let follower of response.data){
+            if(i >= max) break;
+            let followerDiv = document.createElement("p");
+            followerDiv.innerHTML = follower.user_name;
+            followersDiv.appendChild(followerDiv);
+            i++;
+        }
     });
 
     const subOptions = {
