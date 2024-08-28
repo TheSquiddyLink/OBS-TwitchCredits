@@ -42,10 +42,16 @@ async function main(){
     const subDiv = document.getElementById("subscribers");
     handleRequest(subOptions, function(response) {
         response.data.forEach(element => {
+            if(element.user_name == "SquibsLand") return;
             let sub = document.createElement("p");
             sub.innerHTML = element.user_name;
             subDiv.appendChild(sub);
         });
+        if(subDiv.children.length == 0){
+            let sub = document.createElement("p");
+            sub.innerHTML = "No Subscribers";
+            subDiv.appendChild(sub);
+        }
     });
 
     const vipDiv = document.getElementById("vip");
