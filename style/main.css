@@ -1,6 +1,6 @@
 .credits {
     text-align: center;
-    animation: vertScroll 50s infinite linear;
+    animation: vertScroll 60s infinite linear;
 }
 body {
     overflow: hidden;
@@ -9,6 +9,14 @@ body {
 
 #subscribers > p > span {
     animation: rainbowText 2s infinite;
+}
+
+#vip {
+    color: purple;
+}
+
+#mod {
+    color: green;
 }
 @keyframes vertScroll {
     from {
