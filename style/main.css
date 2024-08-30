@@ -1,15 +1,26 @@
 .credits {
     text-align: center;
-    animation: vertScroll 50s infinite linear;
+    /* animation: vertScroll 50s infinite linear; */
 }
 body {
     overflow: hidden;
 }
 @keyframes vertScroll {
     from {
-        transform: translateY(100%);
+        /* transform: translateY(100%); */
     }
     to {
         transform: translateY(-120%);
     }
+}
+
+@keyframes rainbowText {
+    0% { color: red; }
+    14% { color: orange; }
+    28% { color: yellow; }
+    42% { color: green; }
+    57% { color: blue; }
+    71% { color: indigo; }
+    85% { color: violet; }
+    100% { color: red; }
 }
