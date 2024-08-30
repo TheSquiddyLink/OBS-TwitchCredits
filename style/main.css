@@ -6,6 +6,9 @@ body {
     overflow: hidden;
 }
 @keyframes vertScroll {
+    from {
+        transform: translateY(100%);
+    }
     to {
         transform: translateY(-120%);
     }
