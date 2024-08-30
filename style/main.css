@@ -1,14 +1,18 @@
 .credits {
     text-align: center;
-    /* animation: vertScroll 50s infinite linear; */
+    animation: vertScroll 50s infinite linear;
 }
 body {
     overflow: hidden;
     font-family: splatoon;
 }
+
+#subscribers > p > span {
+    animation: rainbowText 2s infinite;
+}
 @keyframes vertScroll {
     from {
-        /* transform: translateY(100%); */
+        transform: translateY(100%);
     }
     to {
         transform: translateY(-120%);

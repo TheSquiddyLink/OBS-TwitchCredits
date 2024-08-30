@@ -46,13 +46,12 @@ async function main(){
     const subDiv = document.getElementById("subscribers");
     handleRequest(subOptions, function(response) {
         response.data.forEach(element => {
-            // if(element.user_name == "SquibsLand") return;
+            if(element.user_name == "SquibsLand") return;
             let letters = element.user_name.split("");
             let sub = document.createElement("p");
             for(let i = 0; i < letters.length; i++){
                 let letter = document.createElement("span");
                 letter.innerHTML = letters[i];
-                letter.style.animation = "rainbowText 1s infinite";
                 letter.style.animationDelay = `${i * 0.2}s`;
                 sub.appendChild(letter);
             }
