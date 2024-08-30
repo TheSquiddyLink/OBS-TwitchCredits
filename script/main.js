@@ -94,6 +94,7 @@ async function main(){
 
     handleRequest(modOptions, function(response) {
         response.data.forEach(element => {
+            if(element.user_name == "NightBot") return;
             let mod = document.createElement("p");
             mod.innerHTML = element.user_name;
             modDiv.appendChild(mod);
