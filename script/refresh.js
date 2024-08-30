@@ -20,7 +20,7 @@ async function refresh(){
     const data = await response.json();
 
     localStorage.setItem("token", data.access_token);
-    console.log(data.access_token);
+    window.location.reload();
 }
 
 async function validate(){
