@@ -4,6 +4,7 @@
 }
 body {
     overflow: hidden;
+    font-family: splatoon;
 }
 @keyframes vertScroll {
     from {
@@ -23,4 +24,9 @@ body {
     71% { color: indigo; }
     85% { color: violet; }
     100% { color: red; }
+}
+
+@font-face {
+    font-family: splatoon;
+    src: url(../font/Splatoon2.otf);
 }
