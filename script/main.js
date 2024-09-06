@@ -47,14 +47,18 @@ async function main(){
     handleRequest(subOptions, function(response) {
         response.data.forEach(element => {
             if(element.user_name == "SquibsLand") return;
+            tier = "- Tier " + (element.tier / 1000);
+            element.user_name += " " + tier;
             let letters = element.user_name.split("");
             let sub = document.createElement("p");
+
             for(let i = 0; i < letters.length; i++){
                 let letter = document.createElement("span");
                 letter.innerHTML = letters[i];
-                letter.style.animationDelay = `${i * 0.2}s`;
+                if(letters[i] != " ") letter.style.animationDelay = `${i * 0.2}s`;
                 sub.appendChild(letter);
             }
+
             subDiv.appendChild(sub);
         });
         if(subDiv.children.length == 0){
