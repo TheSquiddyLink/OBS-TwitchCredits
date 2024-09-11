@@ -1,16 +1,38 @@
 console.log("Hello World");
 
 main();
+async function refresh(){
+    
+    const config = await fetch("config.json");
+    const configJSON = await config.json();
 
+    const CLIENT_ID = configJSON.client_id;
+    const CLIENT_SECRET = configJSON.secret;
+    const REFRESH_TOKEN = configJSON.refresh_token;
+
+    const options = {
+        url: "https://id.twitch.tv/oauth2/token",
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `grant_type=refresh_token&refresh_token=${REFRESH_TOKEN}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}` 
+    }
+
+    const response = await fetch(options.url, options);
+    const data = await response.json();
+    return data.access_token;
+}
 async function main(){
     const response = await fetch("config.json");
     const config = await response.json();
     console.log(config);
 
     const CLIENT_ID = config.client_id;
-    const TOKEN = localStorage.getItem("token");
+    const TOKEN = await refresh();
     const ID = config.id;
 
+    console.log("Token: ", TOKEN);
     const options = {
         url: `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${ID}`,
         method: 'GET',
@@ -45,8 +67,8 @@ async function main(){
     }
     const subDiv = document.getElementById("subscribers");
     handleRequest(subOptions, function(response) {
-        response.data.forEach(element => {
-            if(element.user_name == "SquibsLand") return;
+        for (let element of response.data) {
+            if(element.user_name == "SquibsLand") continue;
             tier = "- Tier " + (element.tier / 1000);
             element.user_name += " " + tier;
             let letters = element.user_name.split("");
@@ -60,7 +82,7 @@ async function main(){
             }
 
             subDiv.appendChild(sub);
-        });
+        }
         if(subDiv.children.length == 0){
             let sub = document.createElement("p");
             sub.innerHTML = "No Subscribers";
@@ -79,11 +101,11 @@ async function main(){
     }
 
     handleRequest(vipOptions, function(response) {
-        response.data.forEach(element => {
+        for (let element of response.data) {
             let vip = document.createElement("p");
             vip.innerHTML = element.user_name;
             vipDiv.appendChild(vip);
-        });
+        }
     });
 
     const modDiv = document.getElementById("mod");
@@ -97,12 +119,12 @@ async function main(){
     }
 
     handleRequest(modOptions, function(response) {
-        response.data.forEach(element => {
-            if(element.user_name == "Nightbot") return;
+        for (let element of response.data) {
+            if(element.user_name == "Nightbot") continue;
             let mod = document.createElement("p");
             mod.innerHTML = element.user_name;
             modDiv.appendChild(mod);
-        });
+        }
     });
 } 
 
