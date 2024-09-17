@@ -1,8 +1,47 @@
 console.log("Hello World");
 
 main();
+
+function cookieToken() {
+    if(document.cookie) {
+        console.log("Cookie Found");
+        console.log(document.cookie);
+        if(document.cookie.includes("token")){
+            console.log("Token Found");
+            var token = document.cookie.split("token=")[1];
+            return token;
+        }
+    }
+}
+
+async function validate(){
+    const token = cookieToken();
+    if(token){
+        const options = {
+            url: "https://id.twitch.tv/oauth2/validate",
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }
+
+        const response = await fetch(options.url, options);
+        const data = await response.json();
+        console.log("Validate")
+        console.log(data);
+        return data.status;
+
+    }
+}
+
 async function refresh(){
+    var status = await validate();
     
+    if(status != 401) {
+        console.log("Token Valid");
+        return cookieToken();
+    }
+
     const config = await fetch("config.json");
     const configJSON = await config.json();
 
@@ -21,6 +60,7 @@ async function refresh(){
 
     const response = await fetch(options.url, options);
     const data = await response.json();
+    // document.cookie = `token=${data.access_token}`;
     return data.access_token;
 }
 async function main(){
