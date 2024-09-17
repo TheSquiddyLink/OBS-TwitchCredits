@@ -37,10 +37,10 @@ async function validate(){
 async function refresh(){
     var status = await validate();
     
-    if(status != 401) {
-        console.log("Token Valid");
-        return cookieToken();
-    }
+    // if(status != 401) {
+    //     console.log("Token Valid");
+    //     return cookieToken();
+    // }
 
     const config = await fetch("config.json");
     const configJSON = await config.json();
@@ -164,6 +164,25 @@ async function main(){
             let mod = document.createElement("p");
             mod.innerHTML = element.user_name;
             modDiv.appendChild(mod);
+        }
+    });
+
+    const bitsDiv = document.getElementById("bits");
+    
+    const bitsOptions = {
+        url: "https://api.twitch.tv/helix/bits/leaderboard?count=10&period=all",
+        method: 'GET',
+        headers: {
+            'Client-ID': CLIENT_ID,
+            'Authorization': `Bearer ${TOKEN}`
+        }
+    }
+
+    handleRequest(bitsOptions, function(response) {
+        for (let element of response.data) {
+            let bits = document.createElement("p");
+            bits.innerHTML = element.user_name + " " + element.score;
+            bitsDiv.appendChild(bits);
         }
     });
 } 
