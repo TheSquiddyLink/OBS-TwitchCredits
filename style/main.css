@@ -20,10 +20,10 @@ body {
 }
 @keyframes vertScroll {
     from {
-        transform: translateY(100%);
+        transform: translateY(calc(100vh));
     }
     to {
-        transform: translateY(-120%);
+        transform: translateY(calc(-100%));
     }
 }
 
