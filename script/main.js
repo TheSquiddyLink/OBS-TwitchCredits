@@ -167,6 +167,40 @@ async function main(){
         }
     });
 
+    const bitsImagesOptions = {
+        url: "https://api.twitch.tv/helix/bits/cheermotes",
+        method: 'GET',
+        headers: {
+            'Client-ID': CLIENT_ID,
+            'Authorization': `Bearer ${TOKEN}`
+        }
+    }
+
+    /**
+         * @typedef {Object} TierObject
+         * @property {number} amount - The minimum number of bits for this tier
+         * @property {string} img - The URL of the animated dark image for this tier
+    */
+
+    /**
+     * @type {Array<TierObject>}
+     */
+    var images = []
+
+    await handleRequest(bitsImagesOptions, function(response) {
+        const data = response.data[0]
+        for(let tier of data.tiers){
+            let obj = {
+                amount: tier.min_bits,
+                img: tier.images.dark.animated[2]
+            }
+            images.push(obj)
+        }
+    });
+
+    console.log(images);
+
+
     const bitsDiv = document.getElementById("bits");
     
     const bitsOptions = {
@@ -179,12 +213,22 @@ async function main(){
     }
 
     handleRequest(bitsOptions, function(response) {
+        let reversedIcons = images.reverse()
         for (let element of response.data) {
+            let span = document.createElement("span");
             let bits = document.createElement("p");
-            bits.innerHTML = element.user_name + " " + element.score;
-            bitsDiv.appendChild(bits);
+            bits.innerHTML = element.user_name + " - " + element.score;
+            span.appendChild(bits);
+            let img = document.createElement("img");
+            console.log(images)
+            img.src= reversedIcons.find(x => element.score >= x.amount).img;
+            img.classList.add("bitsAni");
+            span.appendChild(img);
+            bitsDiv.appendChild(span);
         }
     });
+
+
 } 
 
 

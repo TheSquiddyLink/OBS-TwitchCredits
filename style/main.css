@@ -18,6 +18,18 @@ body {
 #mod {
     color: green;
 }
+
+#bits > span {
+    display: flex;
+    justify-content: center;
+}
+
+.bitsAni {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 15px;
+    margin-left: 5px;
+}
 @keyframes vertScroll {
     from {
         transform: translateY(calc(100vh));
@@ -40,5 +52,5 @@ body {
 
 @font-face {
     font-family: splatoon;
-    src: url(../font/Splatoon2.otf);
+    src: url(../font/Splatoon2.otf) format("opentype");
 }
