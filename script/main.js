@@ -71,6 +71,7 @@ async function main(){
     const CLIENT_ID = config.client_id;
     const TOKEN = await refresh();
     const ID = config.id;
+    const USER_NAME = config.user_name;
 
     console.log("Token: ", TOKEN);
     const options = {
@@ -108,7 +109,7 @@ async function main(){
     const subDiv = document.getElementById("subscribers");
     handleRequest(subOptions, function(response) {
         for (let element of response.data) {
-            if(element.user_name == "SquibsLand") continue;
+            if(element.user_name == USER_NAME) continue;
             tier = "- Tier " + (element.tier / 1000);
             element.user_name += " " + tier;
             let letters = element.user_name.split("");
